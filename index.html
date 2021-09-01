@@ -1,111 +1,374 @@
+
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
+body {
+  font-family: "Lato", sans-serif;
 }
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
-text {
-  font-family: sans-serif;
-  font-size: 10px;
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
 }
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
 </style>
-<title>Ecology of Resources</title>
+</head>
+<body>
+ <!-- Useful links:
+ For getting mermaid to render - https://github.com/mermaid-js/mermaid/blob/develop/docs/usage.md -->
+<div class="sidenav">
+  <a href="#welcome">1 WELCOME</a>
 
-<p>This is a test.</p>
+  <a href="#managing">2 MANAGING YOUR DATA</a>
+    <a href="#whatisdata">2.1 What is data and metadata?</a>
+      <a href="#cleaning">2.2 Cleaning up your data</a>
+      <a href="#cleaning1">2.2.1 Sorting outthe metadata</a>
+      <a href="#cleaning2">2.2.2 Cleaning up the data</a>
+      <a href="#cleaning3">2.2.3 Etablishing your data managment plan</a>
 
-<svg width="960" height="600"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
+  <a href="#vis">3 VISULISING YOUR DATA</a>
+    <a href="#text">3.1 Methods for text data</a>
+    <a href="#numbers">3.2 Methods for numbers data</a>
+    <a href="#location">3.3 Methods for location data</a>
 
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+  <a href="#sharing">4 SHARING YOUR DATA</a>
+    <a href="#sharingdata">4.1 Sharing your data and visualisations</a>
+    <a href="#showcasing">4.2 Showcasing your data and visualisations</a>
+    <a href="#cided">4.3 What are the benifits?</a>
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+  <a href="#next">WHERE TO NEXT?</a>
+</div>
 
-var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
+<div class="main">
 
-d3.json("miserables.json", function(error, graph) {
-  if (error) throw error;
+<h1><u>Data Management and Digital Platforms for Music Research</u></h1>
+<p>We acknowledge that we are gathered, both physically and virtually, on the lands of the Wurundjeri people of the Kulin Nation, who have been custodians of these unceded lands for many thousands of years. The University of Melbourne is situated on the lands of the Wurundjeri and Boon Wurrung, the Dja Dja Wurrung People, the Yorta Yorta Nation, and the Wadawurrung People. We acknowledge and pay our respects to their Elders past and present.</p>
 
-  var link = svg.append("g")
-      .attr("class", "links")
-    .selectAll("line")
-    .data(graph.links)
-    .enter().append("line")
-      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+<h1><a id='welcome'>Welcome and overview</a></h1>
+  <p>Welcome to this introductory session on Data Management and Digital Platforms for Music Research. This session was prepared for the <a href="https://finearts-music.unimelb.edu.au/current-students/research-students/graduate-research-seminar-melbourne-conservatorium-of-music"> Faculty of Fine Arts and Music Graduate Research Seminar, September 2, 2021, 11am - 1pm</a>. In this session you will be introduced to digital platforms for both managing and presenting data collected for music research. This workshop will introduce you to the different kinds of digital applications available, and the technical support and training options that they can access through the University of Melbourne. We will look at some examples of music research projects which apply some of the approaches we are discussing.
+  <br>
+  <br>
+  This workshop is part of the "Editions de l’Oiseau-Lyre International Network" project led by Professor Kerry Murphy, Dr Rachel Orzech and Dr Jen Hill. The project is assisted by Dr Kristal Spreadborough, Research Data Specialist at the <a href='https://mdap.unimelb.edu.au/'>Melbourne Data Analytics Platform</a>, and Peter Farmer, Research Assistant. The workshop today is presented by Dr Kristal Spreadborough.
+  <br>
+  <p>In this workshop, we'll work through the following stages and apply them to data taken from the <a href='https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&64%2C%2C266/indexsort=-'>Editions de l'Oiseau-Lyre Archive. Music for performance and publication.</a></p>
+<div class="mermaid">
+graph TD
+    subgraph 3 Sharing your data
+    J{You want to share and <br> showcase your data and visualisations}
+    J --> M[Sharing your </br> data and visualisations]-->P
+    J --> N[Showcasing your </br> data and visualisations]-->P
+    J --> O[What are the benifits?]-->P
+    P[The End! That's it for today.]
+    end
+    subgraph 2 Visulising your data
+    Q{You want to visualise your data}
+    Q --> G[Methods for </br> text data]-->R
+    Q --> H[Methods for </br> numbers data]-->R
+    Q --> I[Methods for </br> location data]-->R
+    end
+    R[Now you have some nice clean data </br> and some nice visulisations]
+    subgraph 1 Managing your data
+    B{You have some data, but it's a bit messy}
+    B --> D[Sorting out </br> the metadata]-->C
+    B --> E[Cleaning up </br> the data]-->C
+    B --> F[Etablishing your </br> data managment plan]-->C
+    C[Now your data is nice and tidy!]
+    end
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+ <script>mermaid.initialize({startOnLoad:true});</script>
 
-  var node = svg.append("g")
-      .attr("class", "nodes")
-    .selectAll("g")
-    .data(graph.nodes)
-    .enter().append("g")
+<h1><a id='managing'>2 MANAGEING YOUR DATA</a></h1>
+<div class="mermaid">
+graph TD
+    subgraph 1 Managing your data
+    B{You have some data, but it's a bit messy}
+    B --> D[Sorting out </br> the metadata]-->C
+    B --> E[Cleaning up </br> the data]-->C
+    B --> F[Etablishing your </br> data managment plan]-->C
+    C[Now your data is nice and tidy!]
+    end
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+ <script>mermaid.initialize({startOnLoad:true});</script>
 
-  var circles = node.append("circle")
-      .attr("r", 5)
-      .attr("fill", function(d) { return color(d.group); })
-      .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended));
 
-  var lables = node.append("text")
-      .text(function(d) {
-        return d.id;
-      })
-      .attr('x', 6)
-      .attr('y', 3);
+  <h2><a id='whatisdata'>What is data and metadata?</a></h2>
+    <b>Data</b>
+    <br>
+    <br>
+    <b>ACTIVITY</b>
+    <p>Do you consider yourself someone who works with data? </p>
+    <br>
+    <iframe src="https://pollev-embeds.com/multiple_choice_polls/Xr690dUccwtcyqdhffV3y/respond" width="800px" height="600px"></iframe>
+    <br>
+    <br>
+    <p>How do you compare with others here today? Check out the results of the poll below: </p>
+    <br>
+    <iframe src="https://embed.polleverywhere.com/multiple_choice_polls/Hw3AF62Ir0V1T42qtllm9?controls=none&amp;short_poll=true" width="800px" height="600px"></iframe>
+    <br>
+    <br>
+    <i>Extra information</i>: this is an interesting blog on <a href='https://library.stanford.edu/blogs/stanford-libraries-blog/2021/05/everything-data-except-when-it-isnt'> "Everything is data, except when it isn't" by Catherine Nicole Coleman</a>.
+    <br>
+    <br>
+    <br>
+    <b>Metadata</b>
+      <p>Metadata refers to the information about the data. Note: You may also see “meta(data)” - a catch-all term that encompasses data points, data, datasets, and metadata. Some examples of metadata from <a href='https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&64%2C%2C266/indexsort=-'>Editions de l'Oiseau-Lyre Archive. Music for performance and publication</a> include:
+      <ul>
+        <li>Physical description</li>
+        <li>Notes</li>
+        <li>Contents</li>
+        <li>Other author</li>
+        <li>Subject</li>
+        <li>Variant Title</li>
+    </ul>
+      <object data=https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&64%2C%2C266/indexsort=- width="800" height="600"> <embed src=http://www.web-source.net width="800" height="600"> </embed> Error: Embedded data could not be displayed. </object>
 
-  node.append("title")
-      .text(function(d) { return d.id; });
+      <br>
+      <br>
 
-  simulation
-      .nodes(graph.nodes)
-      .on("tick", ticked);
+      <b>ACTIVITY</b>
+      <p>Thinking about the data/materials you work with, what kinds of metadata are most relevant?</p>
+      <br>
+        <iframe src="https://pollev-embeds.com/free_text_polls/DNj3tXMBYSS8fFLas51TZ/respond" width="800px" height="600px"></iframe>
+      <br>
+      <p>How do you compare with others here today? Check out the results below: </p>
+        <iframe src="https://embed.polleverywhere.com/free_text_polls/LRC1hv3xfBSqqCD3VmHZ4?controls=none&short_poll=true" width="800px" height="600px"></iframe>
+      <br>
+      <p><i>Further reading</i> - <a href='https://www.ands.org.au/working-with- data/metadata'>Australian National Data Service (ANDS)</a> </p>
+      <i>Further reading </i>- Wilkinson, M. D., M. Dumontier, I. J. Aalbersberg, G. Appleton, M. Axton, A. Baak, N. Blomberg, et al. 2016. “The FAIR Guiding Principles for scientific data management and stewardship.” Scientific Data 3 (1): 160018. <a href='http://dx.doi.org/10.1038/sdata.2016.18'>http://dx.doi.org/10.1038/sdata.2016.18.</a></p>
 
-  simulation.force("link")
-      .links(graph.links);
+    <h3>Different kinds of data and related metadata</h3>
+      <p>There are many different kinds of data! Below are some examples of different kinds of data we might find our example from <a href='https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&64%2C%2C266/indexsort=-'>Editions de l'Oiseau-Lyre Archive. Music for performance and publication.</a></p>
+        <ul>
+          <li>Qualitative (text) data - like letters, clippings, interviews, and diaries. In our specific example, the descriptions found in the "Notes" metadata field of the record. (We look at ways of visualising based data in more detail below.)</li>
+          <li>Quantitative (numbers) data - like counts of scores, reaction times, number of publications per composer over time. In our specific example, the number of manuscripts per item as found in the "Physical description" metadata field. (We look at ways of visualising numbers data in more detail below.)</li>
+          <li>Locations - like city, country, and coordinates. In our specific example, it could be the birth place of the composer found in the "Author" metadata field. (We look at ways of visulising location based data in more detail below.)</li>
+          <li>Time series - like publications over time. In our specific example, it could be the year in which the piece was published found in the "Published" metadata field. (We do not look at this kind of data in this workshop, but see the next steps section for suggestions if you're interested!)</li>
+          <li>The music itself! - like scores, scores represented as xml, and recordings. In our specific example, it could be the actual item described in the "Physical description" metadata field (We do not look at this kind of data in this workshop, but see the next steps section for suggestions if you're interested!)</li>
+        </ul>
+        <br>
+        <br>
+        <object data=https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&251%2C%2C266/indexsort=- width="800" height="400"> <embed src=http://www.web-source.net width="600" height="400"> </embed> Error: Embedded data could not be displayed. </object>
 
-  function ticked() {
-    link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+        <br>
+        <br>
+        <b>ACTIVITY</b>
+        <p>Do you work with any of the data discussed?</p>
+        <br>
+        <iframe src="https://pollev-embeds.com/free_text_polls/r1UpDwB3nRK9LhnhtNxFx/respond" width="800px" height="600px"></iframe>
+        <br>
+        <p>How do you compare with others here today? Check out the results below: </p>
+        <br>
+        <iframe src="https://embed.polleverywhere.com/free_text_polls/yoCDcu45odi4mg36hsyzw?controls=none&short_poll=true" width="800px" height="600px"></iframe>
+        <br>
+        <br>
+        <b>ACTIVITY</b>
+        <p>Breakout rooms: In your breakout rooms, take this time to talk about whether you work with any of the kinds of data discussed above. Do you consider this data? Why, why not? Please contribute your thoughts to this Padlet.</p>
+        <p><b><mark>Nominate one member of your breakout room to report back to the whole group.</mark></b></p>
 
-    node
-        .attr("transform", function(d) {
-          return "translate(" + d.x + "," + d.y + ")";
-        })
-  }
-});
+        <div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:2px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4"><p style="padding:0;margin:0"><iframe src="https://unimelb.padlet.org/embed/sjeoej8hqj2juybr" frameborder="0" allow="camera;microphone;geolocation" style="width:100%;height:608px;display:block;padding:0;margin:0"></iframe></p><div style="padding:8px;text-align:right;margin:0;"><a href="https://padlet.com?ref=embed" style="padding:0;margin:0;border:none;display:block;line-height:1;height:16px" target="_blank"><img src="https://padlet.net/embeds/made_with_padlet.png" width="86" height="16" style="padding:0;margin:0;background:none;border:none;display:inline;box-shadow:none" alt="Made with Padlet"></a></div></div>
+      <br>
 
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-}
+  <h2><a id='cleaning'>2.3 Cleaning up your data</a></h2>
+  <p>Above we've discussed what data and metadata are. We've looked at  these concepts using the <a href='https://cat.lib.unimelb.edu.au/search~S30?/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/teditions+de+loiseau+lyre+archive+music+for+performance+and+publication/1%2C1%2C266%2CB/frameset&FF=teditions+de+loiseau+lyre+archive+music+for+performance+and+publication&64%2C%2C266/indexsort=-'>Editions de l'Oiseau-Lyre Archive. Music for performance and publication</a>. Now we're going to "get our hands dirty" and play with some data or our own! You can use your own data, or you can follow along with me <a href='https://unimelbcloud-my.sharepoint.com/:f:/g/personal/kristal_spreadborough_unimelb_edu_au/EuEC27GsX0RJkfKRmG8lUEIBwgDeVlLTl_j4LmePcSeHfA?e=tKcqff'>using this example dataset</a>.</p>
+  <p>Using the zoom thumbs up, who is using their own data? Would you like to tell us about it?</p>
+    <h3><a id='cleaning1'>2.3.1 Sorting out the metadata</a></h3>
+    <p>There are lots of things to keep in mind when you're working with metadata, we're just going to touch on a few now. You may hear of Metadata Standards when talking about metadata. These are a pre defined set of metadata fields and ways of expressing data and metadata so that it is consistent in your own datasets and across different peoples datasets. Example: <a href='https://dublincore.org/'>Dublin Core</a>. Pros include that it is easy to quickly understand lots of different datasets, everything is displayed in a consistent way. Cons are that you have to get everyone working in a field to agree to do things the same way!</p>
+    <p>It is great if you can use a standard in your own data, but the most important thing is to be consistent. That is, use the same metadata fields in your own data, structure your data and metadata in a consistent way, and describe and document everythign you do.</p>
+    <p>The "richer" your metadata, the more you can do with your dataset. For example, if you have nice, clear, detailed metadata fields, you can do lots of interesting visualisations and perform really good searches. We'll look more at this in section 3 below.</p>
+    <b>ACTIVITY</b>
+    <br><p>Looking at the example dataset or your own data, what metadata fields are important? Here are some suggestions for additional fields for our example dataset:</p>
+    <ul>
+      <li>Document Type from "Subject"</li>
+      <li>Short description from "Notes"</li>
+    </ul>
+    <p>Let's now add these to the dataset:</p>
+    <ul>
+      <li>Step 1: insert new columns</li>
+      <li>Step 2: add a descriptive metadata title</li>
+      <li>Step 2: add the field to your data dictionary (Note: we won't look at data dictionaries in this workshop, but you can find more information <a href='http://library.ucmerced.edu/data-dictionaries'> here</a>. If this is of interst, we can do a further workshop on this at a later date.)</li>
+    </ul>
+    <h3><a id='cleaning2'>2.3.2 Cleaning up the data</a></h3>
+    <p>"Data Cleaning" can mean many things. Today, we're going to think of "data cleaning" from the perspective of having to separate out data into different metadata fields - the fields we just added above. But, data cleaning can also refer to standardising data, to formatting data in a way that is suitable for analysis, and so on.</p>
+    <p>Note: There are interesting discussions around the ethics of data cleaning - pragmatically it is needed so that we can make sense of the data, but it also means removing and "smoothing over" certain elements of a dataset. If this is of interest, we can do a further workshop on this at a later date.</p>
+    <b>ACTIVITY</b>
+    <br><p>Thinking back on the metadata fields we added above, we're now going to use Excel to extract data into these columns.</p>
+    <p>Note: There are many tools you can use to do this, some of which are  programming languages (e.g. Python, R). We're using excel, but if this is of interst, we can do a further workshop on this at a later date.</p>
+    <ul>
+      <li>Get Document Type out of Subject field. Using excel explore: Text to Columns, and the importance of unique delimiters.</li>
+      <li>Get Short Description out of Notes field. Using excel explore: Formulas, specifically looking at =LEFT(XX, SEARCH("-",XX,1)-1).</li>
+    </ul>
+    <h3><a id='cleaning3'>2.3.3 Establishing your data management plan</a></h3>
+    <p>A data management plan is a document in which you describe your data, and how you plan to store and preserve it. The University of Melbourne has a course on data management called <a href='https://library.unimelb.edu.au/Digital-Scholarship/training_and_outreach/data'>Managing Data @Melbourne</a>. This is a good resource to get you started. It is written for a general audience, so if you're interested in a more tailored plan for your work, or if this is of interest, we can do a further workshop on this at a later date.</p>
+    <b>ACTIVITY</b>
+    <p>Let's discuss a few key aspects from the data management plan which are useful to start thinking about. As we go through these, we'll reflect back on the example dataset or on your own data.</p>
+    <ul>
+      <li>File format: always store a copy of your data in open file formats (example, saving an excel spreadsheet as a csv). You will see our example is using csv file.</li>
+      <li>Storage: have multiple copies of your data that you sync regularly (example, using your UoM onedrive accounts). You will see that you accessed our example from my onedrive account.</li>
+      <li>readme.txt documents: what are they and what's the point? This is where you provide important information about your data. Lets look at one together now. You can make your own, or you can follow along with me <a href='https://unimelbcloud-my.sharepoint.com/:f:/g/personal/kristal_spreadborough_unimelb_edu_au/EuEC27GsX0RJkfKRmG8lUEIBwgDeVlLTl_j4LmePcSeHfA?e=tKcqff'>using this example</a>.</li>
+    </lu>
 
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
+fiel formats
+<h1><a id='vis'>3 VISULISING YOUR DATA</a></h1>
+<p>In the last part of the workshop, we looked at cleaning and preparing your data.</p>
+<p>We're now going to look at some ways to visualise your data.</p>
+<div class="mermaid">
+graph TD
 
-function dragended(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
-}
+    subgraph 2 Visulising your data
+    Q{You want to visualise your data}
+    Q --> G[Methods for </br> text data]-->R
+    Q --> H[Methods for </br> numbers data]-->R
+    Q --> I[Methods for </br> location data]-->R
+    end
+    R[Now you have some nice clean data </br> and some nice visulisations]
 
-</script>
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+ <script>mermaid.initialize({startOnLoad:true});</script>
+
+   <p>This part of the workshop is going to be very hands on. You can use your own data, or follow along with the example dataset. There will be a few notes here but we'll mostly be working with data vis tools. If it is useful, I can upload short how-to videos to this page after the workshop so that you can follow along later.</p>
+    <h2><a id='text'>3.1 Methods for text data</a></h2>
+    <p>A really great tool for text based analysis is <a href='https://voyant-tools.org/'> Voyant</a>. Our data isn't really text heavy, but we can still use Voyant to explore some of the fields. Let's hop over to Voyant now for to explore. We're going to work just with the Notes field in our example dataset. Functionalities we will look at include:</p>
+    <ul>
+      <li>Wordcloud, including stop words </li>
+      <li>TermsBerry, including Top terms and Distinct terms</li>
+      <li>Contexts, including sentence and paragraph level</li>
+    </ul>
+    <p>There are many other things you can do with Voyant, and it's really easy and fun to explore! It can be really powerful for longer texts like letters, or program notes. Note: if there are ethical considerations around your data (e.g. if you needed UoM ethics to collect it, if you need to be careful who has access to it) then do not use Voyant. We can discuss alternatives if this is something you need to consider.</a>
+    <h2><a id='numbers'>3.2 Methods for numbers data</a></h2>
+    <p>For visualising quantitative data, we're going to use a tool you all know: Excel. Like Voyant, Excel is just one tool of many to use for data visualisation. You can do everything and more using a coding language (Python, R), but you can also do a lot with Excel and it is a great way to start exploring the possibilities without having to learn everything at once. We're going to work just with the Document Type field that we created above. Let’s hop over to excel now and take a look. Functionalities we'll look at include:</p>
+    <ul>
+      <li>Sort and filter, really good for counting items in groups</li>
+      <li>Pivot tables, really good for looking at how items group together</li>
+      <li>Graphs, really good for making visualisations directly in Excel</li>
+    </ul>
+    <h2><a id='location'>3.3 Methods for location data</a></h2>
+    <p>If you're interested in mapping, or if you have location-based data, you can create some really nice maps using freely available software. In this section we're going to talk about mapping using python package called <a href='https://python-visualization.github.io/folium/quickstart.html'>Folium</a>. This is a bit of a change from what we've used previously because here you're working directly with code. We're not going to work with the code here, instead we'll talk through what you can do with this kind of mapping tool. If you're interested, I can create a video tutorial on how to get started with Folium, but for now let's talk about this conceptually. Note: as with the discussion above, there are a lot of different tools that can do mapping, we're just looking at one today. Perhaps you know others? Let's think about this from the perspective of plotting composer birthplaces from the "Author" field. Functionalities we'll discuss include </p>
+    <ul>
+      <li>Latitude, longitude, and zoom (in our example, you can set the map to zoom in on a town or country, or show the world)</li>
+      <li>Adding markers (in our example, markers for birth places of composers)</li>
+      <li>Backgrounds and themes (in our example, you can show streets and cities, or you could use your own background showing historical maps for the time period you're working in)</li>
+    </ul>
+      <object data=https://python-visualization.github.io/folium/quickstart.html width="800" height="400"> <embed src=http://www.web-source.net width="600" height="400"> </embed> Error: Embedded data could not be displayed. </object>
+
+
+<h1><a id='sharing'>4 SHARING YOUR DATA</a></h1>
+<i>Extra information</i>: if you look into data sharing, you'll likely come across the <a href='https://www.go-fair.org/fair-principles/'> FAIR</a> and <a href='https://www.gida-global.org/care'> CARE</a>. We won't get into these today, but in brief they are a set of guidelines and recommendations that aim to promote best practice in data sharing. They also apply to other aspects of research including visualisations.
+<div class="mermaid">
+graph TD
+    subgraph 3 Sharing your data
+    J{You want to share and <br> showcase your data and visualisations}
+    J --> M[Sharing your </br> data and visualisations]-->P
+    J --> N[Showcasing your </br> data and visualisations]-->P
+    J --> O[What are the benifits?]-->P
+    P[The End! That's it for today.]
+    end
+
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+ <script>mermaid.initialize({startOnLoad:true});</script>
+    <h2><a id='sharingdata'>4.1 Sharing your data and visualisations</a></h2>
+    <p>The main way that people share their data is using a repository (a digital archive of data and code, but also NTROs and other outputs). UoM has <a href='https://gateway.research.unimelb.edu.au/resources/platforms-infrastructure-and-equipment/doing-data-better/figshare/figshare-comparison-table'>a few repositories</a>, but today we're going to talk about <a href='https://melbourne.figshare.com/'>Figshare</a>. We're actually going to go through the steps of entering an item into Figshare. You can follow along if you like, or just watch along as I do it. Some things to note:</p>
+    <ul>
+      <li>Once you add an item to Figshare, anyone on the internet can find it. So, if you have ethical considerations around your data, or if you have an Ethics approval that governs what you can/can't do with your data, then check these out before publishing your data.</li>
+    </ul>
+    <p>OK! Let's jump over to Figshare and add some data and visualisations!</p>
+    <h2><a id='showcasing'>4.2 Showcasing your data and visualisations</a></h2>
+    <p>Figshare is a repository - it's designed to data and visualisations in the long term. But it's not always the best for "showcasing" these. That is, displaying the data nicely for something like a digital exhibition. You  might want to do this if you have lots of nice visualisations from your work, or if you're part of a project where others are creating visualisations, or if you want to make it nice and easy for people to see items that you think are important. There are lots of tools you can use to do this, but we're going to look today at <a href='https://omeka.org/'>Omeka</a>. Unlike Figshare, you can't just log into a UoM Omeka account - you have to request one from RCS. However, today we'll look at an Omeka site that I've been part of in the past, and talk through the functionalities. We'll look at:</p>
+    <ul>
+      <li>The "website" part of Omeka: unlike Fighsare, where it's a collection of items, Omeka looks more like a website.</li>
+      <li>Items</li>
+      <li>Collections</li>
+    </ul>
+    <br>
+    <object data=https://omeka.cloud.unimelb.edu.au/datacreative/ width="800" height="400"> <embed src=http://www.web-source.net width="800" height="400"> </embed> Error: Embedded data could not be displayed. </object>
+
+    <h2><a id='cided'>4.3 What are the benifits?</a></h2>
+    <p>There are many benefits to sharing your data and visualisations, here are just a few:</p>
+    <ul>
+      <li>Persistent identifiers for your research outputs, making them citable.</li>
+      <li>Your research outputs are richly described, making it easier for future you to remember what you did years later</li>
+      <li>Building a portfolio of research activity that is open access</li>
+    </ul>
+    <p>Even if you do not end up sharing research outputs, it is good practice to approach the work like you will because it encourages you to document your steps - this will ultimately help you in the long run when you have to make sense of what you did in the future!</p>
+
+<h1><a id='next'>4 WHERE TO NEXT?</a></h1>
+<p>A lot of information has been covered in this session. Here are the steps we went through:</p>
+<div class="mermaid">
+graph TD
+    subgraph 3 Sharing your data
+    J{You want to share and <br> showcase your data and visualisations}
+    J --> M[Sharing your </br> data and visualisations]-->P
+    J --> N[Showcasing your </br> data and visualisations]-->P
+    J --> O[What are the benifits?]-->P
+    P[The End! That's it for today.]
+    end
+    subgraph 2 Visulising your data
+    Q{You want to visualise your data}
+    Q --> G[Methods for </br> text data]-->R
+    Q --> H[Methods for </br> numbers data]-->R
+    Q --> I[Methods for </br> location data]-->R
+    end
+    R[Now you have some nice clean data </br> and some nice visulisations]
+    subgraph 1 Managing your data
+    B{You have some data, but it's a bit messy}
+    B --> D[Sorting out </br> the metadata]-->C
+    B --> E[Cleaning up </br> the data]-->C
+    B --> F[Etablishing your </br> data managment plan]-->C
+    C[Now your data is nice and tidy!]
+    end
+  </div>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+ <script>mermaid.initialize({startOnLoad:true});</script>
+ <p>Here is a list of additional resources, training, support, and information available at UoM.</p>
+<ul>
+  <li><a href='https://mdap.unimelb.edu.au/'>Melbourne Data Analytics Platform</a>: You can drop MDAP an email at mdap-info@unimelb.edu.au with any questions. If we can't help you, we can put you in touch with someone who can!</li>
+  <li><a href='https://arts.unimelb.edu.au/research/digital-studio/digital-studio-live/digital-skills-training'>Training ofered through the Digital Studio</a>, lots of interesting things and an upcoming Omeka workshop!</li>
+  <li><a href='https://gateway.research.unimelb.edu.au/events/researcher-connect/digital-skills-training'>Digital Skills Training through researcher connect</a>, really good introduction to coding courses!</li>
+  <li><a href='https://scip.unimelb.edu.au/'>Social & Cultural Informatics Platform (SCIP)</a> runs many interesting seminars and workshops.</li>
+  <li>If you're working with scores or other text documents and want to know how to do some computer based analysis, then you might be interested in the <a href='https://music-encoding.org/'>Music encoding initiative</a> and the <a href='https://tei-c.org/'>Text encoding initiative</a>. Both MDAP and SCIP have people who are expert in these initiative, so reach out if you're interested!</p>
+</ul>
+<p>Additionally, here are some things we have not touched on in depth. If these things are of interest let us know and we can do a further workshop on this at a later date</p>
+<ul>
+  <li>Licensing</li>
+  <li>Ethics</li>
+  <li>Ownership</li>
+</ul>
+  </div>
+
+</body>
+</html>

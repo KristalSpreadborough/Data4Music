@@ -1,6 +1,9 @@
 # Stuff I added
 .DS_Store
-
+*.csv
+*.txt
+index0.1.html
+*.xlsx
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
